@@ -14,8 +14,8 @@ It will walk through the setup process to test, deploy and build the project.
 ## Requirements
 Not much really, just make sure to:
 1. NodeJs installed (v18.x).<br />
-    2.1. [NodeJs](https://nodejs.org/en/download/current)<br />
-    2.2. To check if node its installed and the current version run in the command line "node -v". It should display NodeJs version.
+    1.1. [NodeJs](https://nodejs.org/en/download/current)<br />
+    1.2. To check if node its installed and the current version run in the command line "node -v". It should display NodeJs version.
     <pre><code>
     node -v
     </code></pre>
