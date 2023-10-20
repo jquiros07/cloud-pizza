@@ -194,8 +194,12 @@ Not much really, just make sure to:
 
 ## Cleanup
 To remove the infrastructure and delete all resources created, execute "npm run cdk destroy".
+It may ask to confirm the deletion, so type "yes".
     <pre><code>
      npm run cdk destroy
+    </code></pre>
+    <pre><code>
+     Are you sure you want to delete: PizzaOrderDeliveryProcessStack (y/n)? y
     </code></pre>
 
 ## Useful commands
