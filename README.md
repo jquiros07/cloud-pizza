@@ -55,19 +55,20 @@ Not much really, just make sure to:
     </code></pre>
 
 ## Deployment
-- First you need configure you AWS CLI with your acccess credentials, if you already have that skip these steps.
+- Configure the AWS CLI with acccess credentials, if this already set skip these steps.
 - Execute "aws configure"
-<pre><code>
-aws configure
-</code></pre>
+    <pre><code>
+    aws configure
+    </code></pre>
 - Next, enter the data requested.
 - That done the AWS CLI will save these values in a configuration file.
 - To verify success execute "aws sts get-caller-identity". It outputs the IAM user data use in the credentials.
-<pre><code>
-aws sts get-caller-identity
-</code></pre>
+    <pre><code>
+    aws sts get-caller-identity
+    </code></pre>
 
-1. To deploy the infrastructure, first it must execute the bootstrapping process. This is because AWS CDK requires some AWS services to be available. For this the AWS account number and region will be needed.
+
+1. Now all set, to deploy the infrastructure, first it must execute the bootstrapping process. This is because AWS CDK requires some AWS services to be available. For this the AWS account number and region will be needed.
 2. To execute bootstrapping, located inside the directory "cloud-pizza-order-delivery-process", execute "npm run cdk bootstrap aws://aws-account-number/aws-region".
     <pre><code>
     npm run cdk bootstrap aws://111111111111/us-east-200
