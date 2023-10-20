@@ -24,7 +24,6 @@ Not much really, just make sure to:
 
 1. Clone the repository.<br />
     1.1. [Useful link](https://docs.github.com/en/repositories/creating-and-managing-repositories/cloning-a-repository)
-    
 2. Install dependencies.<br />
     2.1. Navigate to the project directory selected as destination for the repository.<br />
     2.2. Locate in the root directory and execute "npm install".
@@ -58,14 +57,14 @@ Not much really, just make sure to:
     npm run cdk bootstrap aws://111111111111/us-east-200
     </code></pre>
     Wait a couples of seconds while the infrastructure is being configured.
-3. Once that execute "npm run cdk deploy", and be patient. It may ask if the user wish to deploy the changes, answer yes.
+3. Once that, execute "npm run cdk deploy", and be patient. It may ask if the user wish to deploy the changes, answer yes.
     <pre><code>
     npm run cdk deploy
     </code></pre>
     <pre><code>
     Do you wish to deploy these changes (y/n)? y
     </code></pre>
-4. If everything went well and the process is done it will show 2 outputs and the Stack ARN. Keep the outputs for usage.
+4. If everything went well and the process is done, it will show 2 outputs and the Stack ARN. Keep the outputs for usage.
     <pre><code>
         Outputs:
         PizzaOrderDeliveryProcessStack.ApiUrl = https://111111111.execute-api.us-east-200.amazonaws.com/prod/
