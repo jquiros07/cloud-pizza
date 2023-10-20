@@ -67,6 +67,7 @@ Not much really, just make sure to:
     aws sts get-caller-identity
     </code></pre>
 
+<br />
 
 1. Now all set, to deploy the infrastructure, first it must execute the bootstrapping process. This is because AWS CDK requires some AWS services to be available. For this the AWS account number and region will be needed.
 2. To execute bootstrapping, located inside the directory "cloud-pizza-order-delivery-process", execute "npm run cdk bootstrap aws://aws-account-number/aws-region".
