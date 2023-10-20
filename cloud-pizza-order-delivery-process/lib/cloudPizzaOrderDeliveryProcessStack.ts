@@ -118,7 +118,7 @@ export class CloudPizzaOrderDeliveryProcessStack extends cdk.Stack {
       resultPath: '$.orderProcess'
     });
 
-    //Step function task to show the error message and next notify
+    //Step function task to show the error message to the customer and notify
     const generalErrorFail: stepFn.Fail = new stepFn.Fail(this, "Error during order process. Order cancelled.", {
       cause: 'An unknown error happened during the order process.',
       error: 'We are having problems processing your order, our apologies.',
@@ -130,6 +130,13 @@ export class CloudPizzaOrderDeliveryProcessStack extends cdk.Stack {
       message: stepFn.TaskInput.fromText('We are having problems processing your order, our apologies')
     }).next(generalErrorFail);
     
+    //Subscribe a production support email address to the SNS topic to receive notifications about the issue
+    new sns.Subscription(this, 'ProductionSupportEmailSubscription', {
+      endpoint: 'supportdummyemail@mail.com', //Add production support email
+      protocol: sns.SubscriptionProtocol.EMAIL,
+      topic: snsTopic,
+    });
+
     //Adding catch to handle exceptions to the process flow
     receiveOrderTask.addCatch(failureHandlerSnsPublishTask, { errors: ['States.ALL'] });
     preparePizzaTask.addCatch(failureHandlerSnsPublishTask, { errors: ['States.ALL'] });
