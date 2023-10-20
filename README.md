@@ -9,7 +9,8 @@ It will walk through the setup process to test, deploy and build the project.
 1. [IaC](https://docs.aws.amazon.com/whitepapers/latest/introduction-devops-aws/infrastructure-as-code.html)
 2. [AWS CDK](https://docs.aws.amazon.com/whitepapers/latest/introduction-devops-aws/aws-cdk.html)
 
-![Alt text](step_fn.PNG)
+![Cloud Pizza Order-Delivery Process](step_fn.PNG)
+Cloud Pizza Order-Delivery Process
 
 ## Requirements
 
