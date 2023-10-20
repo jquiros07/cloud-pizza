@@ -23,7 +23,7 @@ Not much really, just make sure to:
 3. AWS CLI installed.<br />
     3.1 [AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html)<br />
 4. Postman for api testing.<br />
-    3.1 [Postman](https://www.postman.com/downloads/)
+    4.1 [Postman](https://www.postman.com/downloads/)
 
 ## Installation
 1. Clone the repository.<br />
