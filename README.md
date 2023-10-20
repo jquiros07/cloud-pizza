@@ -1,5 +1,4 @@
-# Cloud Pizza 
-
+# Cloud Pizza
 This project sets up an AWS infrastructure to handle the simulation of a pizza order-delivery process. 
 This example uses AWS CDK, TypeScript, API Gateway, Lambda Functions, Step Functions, and SNS for notifications.
 Its a brief and simple but broad example of the applications and capabilities of the AWS cloud and the practice of new 
@@ -13,20 +12,20 @@ It will walk through the setup process to test, deploy and build the project.
 <h6 align="center">Cloud Pizza Order-Delivery Process</h6>
 
 ## Requirements
-
 Not much really, just make sure to:
-1. Have an AWS account.
-2. NodeJs installed (v18.x).<br />
+1. NodeJs installed (v18.x).<br />
     2.1. [NodeJs](https://nodejs.org/en/download/current)<br />
     2.2. To check if node its installed and the current version run in the command line "node -v". It should display NodeJs version.
     <pre><code>
     node -v
     </code></pre>
-3. Postman for api testing.<br />
+2. Have an AWS account.
+3. AWS CLI installed.<br />
+    3.1 [AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html)<br />
+4. Postman for api testing.<br />
     3.1 [Postman](https://www.postman.com/downloads/)
 
 ## Installation
-
 1. Clone the repository.<br />
     1.1. [Useful link](https://docs.github.com/en/repositories/creating-and-managing-repositories/cloning-a-repository)
 2. Install dependencies.<br />
@@ -56,6 +55,18 @@ Not much really, just make sure to:
     </code></pre>
 
 ## Deployment
+- First you need configure you AWS CLI with your acccess credentials, if you already have that skip these steps.
+- Execute "aws configure"
+<pre><code>
+aws configure
+</code></pre>
+- Next, enter the data requested.
+- That done the AWS CLI will save these values in a configuration file.
+- To verify success execute "aws sts get-caller-identity". It outputs the IAM user data use in the credentials.
+<pre><code>
+aws sts get-caller-identity
+</code></pre>
+
 1. To deploy the infrastructure, first it must execute the bootstrapping process. This is because AWS CDK requires some AWS services to be available. For this the AWS account number and region will be needed.
 2. To execute bootstrapping, located inside the directory "cloud-pizza-order-delivery-process", execute "npm run cdk bootstrap aws://aws-account-number/aws-region".
     <pre><code>
