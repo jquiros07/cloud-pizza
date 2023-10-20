@@ -35,7 +35,7 @@ Not much really, just make sure to:
         <pre><code>
         npm install
         </code></pre>
-        It will install the aws-cdk package, wait little.<br />
+        It will install the aws-cdk package, wait a little.<br />
     2.3. Next move into the subdirectory "cloud-pizza-order-delivery-process", once there execute "npm install" to install the other dependencies and wait a little.
         <pre><code>
         npm install
@@ -56,7 +56,7 @@ Not much really, just make sure to:
     </code></pre>
 
 ## Deployment
-1. To deploy the infrastructure, first it must be executed the bootstrapping process. This is because AWS CDK requires some AWS services to be available. For this the AWS account number and region will be needed.
+1. To deploy the infrastructure, first it must execute the bootstrapping process. This is because AWS CDK requires some AWS services to be available. For this the AWS account number and region will be needed.
 2. To execute bootstrapping, located inside the directory "cloud-pizza-order-delivery-process", execute "npm run cdk bootstrap aws://aws-account-number/aws-region".
     <pre><code>
     npm run cdk bootstrap aws://111111111111/us-east-200
