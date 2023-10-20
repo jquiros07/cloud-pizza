@@ -6,7 +6,6 @@ Its a brief and simple but broad example of the applications and capabilities of
 development approaches like Infrastructure as Code (IaC).
 It will walk through the setup process to test, deploy and build the project.
 
-Some cool links:
 1. [IaC](https://docs.aws.amazon.com/whitepapers/latest/introduction-devops-aws/infrastructure-as-code.html)
 2. [AWS CDK](https://docs.aws.amazon.com/whitepapers/latest/introduction-devops-aws/aws-cdk.html)
 
@@ -15,10 +14,13 @@ Some cool links:
 Not much really, just make sure to:
 1. Have an AWS account.
 2. NodeJs installed (v18.x).<br />
-    2.1. To check if node its installed and the current version run in the command line "node -v".
+    2.1. [NodeJs](https://nodejs.org/en/download/current)<br />
+    2.2. To check if node its installed and the current version run in the command line "node -v". It should display NodeJs version.
     <pre><code>
     node -v
     </code></pre>
+3. Postman for api testing.<br />
+    3.1 [Postman](https://www.postman.com/downloads/)
 
 ## Installation
 
