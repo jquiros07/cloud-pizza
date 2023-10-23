@@ -83,39 +83,40 @@ export class CloudPizzaOrderDeliveryProcessStack extends cdk.Stack {
     const receiveOrderTask: tasks.LambdaInvoke = new tasks.LambdaInvoke(this, 'ReceiveOrderTask', {
       lambdaFunction: receiveOrderLambda,
       inputPath: '$.body',
-      resultPath: '$.orderProcess',
+      resultPath: '$.orderRequest',
       payloadResponseOnly: true
     });
 
     //Step function invoking lambda function preparePizzaLambda previously defined
     const preparePizzaTask: tasks.LambdaInvoke = new tasks.LambdaInvoke(this, 'PreparePizzaTask', {
       lambdaFunction: preparePizzaLambda,
-      inputPath: '$.orderProcess',
-      resultPath: '$.orderProcess',
+      inputPath: '$.orderRequest',
+      resultPath: '$.orderProcessResult',
       payloadResponseOnly: true
     });
 
     //Step function invoking lambda function bakePizzaLambda previously defined
     const bakePizzaTask: tasks.LambdaInvoke = new tasks.LambdaInvoke(this, 'BakePizzaTask', {
       lambdaFunction: bakePizzaLambda,
-      inputPath: '$.orderProcess', 
-      resultPath: '$.orderProcess',
+      inputPath: '$.orderProcessResult', 
+      resultPath: '$.orderProcessResult',
       payloadResponseOnly: true
     });
 
     //Step function invoking lambda function packPizzaLambda previously defined
     const packPizzaTask: tasks.LambdaInvoke = new tasks.LambdaInvoke(this, 'PackPizzaTask', {
       lambdaFunction: packPizzaLambda,
-      inputPath: '$.orderProcess', 
-      resultPath: '$.orderProcess',
+      inputPath: '$.orderProcessResult', 
+      resultPath: '$.orderProcessResult',
       payloadResponseOnly: true
     });
 
     //Step function invoking lambda function deliverPizzaLambda previously defined
     const deliverOrderTask: tasks.LambdaInvoke = new tasks.LambdaInvoke(this, 'DeliverOrderTask', {
       lambdaFunction: deliverOrderLambda,
-      inputPath: '$.orderProcess', 
-      resultPath: '$.orderProcess'
+      inputPath: '$.orderProcessResult', 
+      resultPath: '$.orderProcessResult',
+      payloadResponseOnly: true
     });
 
     //Step function task to show the error message to the customer and notify
@@ -127,12 +128,12 @@ export class CloudPizzaOrderDeliveryProcessStack extends cdk.Stack {
     //Step function task to publish messages to SNS topic
     const failureHandlerSnsPublishTask = new tasks.SnsPublish(this, 'FailureHandlerTask', {
       topic: snsTopic,
-      message: stepFn.TaskInput.fromText('We are having problems processing your order, our apologies')
+      message: stepFn.TaskInput.fromText('Support: an error ocurred processing an order, please check.')
     }).next(generalErrorFail);
     
     //Subscribe a production support email address to the SNS topic to receive notifications about the issue
     new sns.Subscription(this, 'ProductionSupportEmailSubscription', {
-      endpoint: 'supportdummyemail@mail.com', //Add production support email
+      endpoint: 'productionsupportdummy@protonmail.com',
       protocol: sns.SubscriptionProtocol.EMAIL,
       topic: snsTopic,
     });
@@ -155,7 +156,7 @@ export class CloudPizzaOrderDeliveryProcessStack extends cdk.Stack {
     //Choice state definition
     const completeOrderProcess: stepFn.Choice = new stepFn.Choice(this, 'Pineapple?')
       .when(
-        stepFn.Condition.booleanEquals('$.orderProcess.requestingPineappleAsIngredient', true), pineappleFail)
+        stepFn.Condition.booleanEquals('$.orderRequest.requestingPineappleAsIngredient', true), pineappleFail)
       .otherwise(
         preparePizzaTask
         .next(bakePizzaTask)

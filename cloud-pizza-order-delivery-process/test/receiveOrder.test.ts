@@ -1,5 +1,6 @@
 import { handler } from '../lambda-functions/receiveOrder';
 import { faker } from '@faker-js/faker';
+import { OrderProcess, OrderRequest } from '../types/order';
 
 /* Test to handle the order request and return correct response */
 describe('receiveOrder Lambda Function', () => {
@@ -20,8 +21,8 @@ describe('receiveOrder Lambda Function', () => {
 
         let requestingPineappleAsIngredientValue = (mockAddPineapple == 'yes') ? true : false;
 
-        //Create request object
-        let event: Object = {
+        //Create Order Request object
+        let event: OrderRequest = {
             orderName: mockOrderName,
             deliveryAddress: mockDeliveryAddress,
             pizza: {
@@ -34,22 +35,20 @@ describe('receiveOrder Lambda Function', () => {
             }
         };
 
-        //Create response object
-        let expectedOutput: Object = {
-            message: 'Order received',
-            order: {
-                orderName : mockOrderName,
-                deliveryAddress: mockDeliveryAddress,
-                pizza: {
-                    size: mockPizzaSize,
-                    pepperoni: mockAddPepperoni,
-                    bacon: mockAddBacon,
-                    mushrooms: mockAddMushrooms,
-                    meat: mockAddMeat,
-                    pineapple: mockAddPineapple
-                }
+        //Create Order Request output object
+        let expectedOutput: OrderRequest = {
+            orderName: mockOrderName,
+            deliveryAddress: mockDeliveryAddress,
+            pizza: {
+                size: mockPizzaSize,
+                pepperoni: mockAddPepperoni,
+                bacon: mockAddBacon,
+                mushrooms: mockAddMushrooms,
+                meat: mockAddMeat,
+                pineapple: mockAddPineapple
             },
-            requestingPineappleAsIngredient: requestingPineappleAsIngredientValue, 
+            orderReceived: true,
+            requestingPineappleAsIngredient: requestingPineappleAsIngredientValue
         };
 
         //Call the lambda handler function
@@ -76,8 +75,8 @@ describe('receiveOrder Lambda Function', () => {
         let mockAddMushrooms = faker.helpers.enumValue(addIngredientOrNot);
         let mockAddMeat = faker.helpers.enumValue(addIngredientOrNot);
 
-        //Create request objects
-        let eventWithPinneapple: Object = {
+        //Create Order Request object, with pineapple
+        let eventWithPinneapple: OrderRequest = {
             orderName: mockOrderName,
             deliveryAddress: mockDeliveryAddress,
             pizza: {
@@ -90,7 +89,8 @@ describe('receiveOrder Lambda Function', () => {
             }
         };
 
-        let eventWithoutPinneapple: Object = {
+        //Create Order Request object, without pineapple
+        let eventWithoutPinneapple: OrderRequest = {
             orderName: mockOrderName,
             deliveryAddress: mockDeliveryAddress,
             pizza: {

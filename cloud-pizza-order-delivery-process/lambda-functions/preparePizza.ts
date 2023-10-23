@@ -1,23 +1,26 @@
+import { faker } from '@faker-js/faker';
+import { Pizza } from '../builders/pizza';
 import { PizzaBuilder } from '../builders/pizzaBuilder';
+import { OrderProcess, OrderRequest } from '../types/order';
 
 /**
  * Prepare pizza lambda function handler. 
- * Creates pizza according order parameters.
+ * Creates pizza according to order parameters.
  * 
  * @export
- * @param {any} body
- * @returns {Promise<any>}
+ * @param {OrderRequest} orderRequest
+ * @returns {Promise<OrderProcess>}
  */
-export const handler = async (body: any): Promise<any> => {
+export const handler = async (orderRequest: OrderRequest): Promise<OrderProcess> => {
     try {
-        let size: string = body.order.pizza.size;
+        let size: string = orderRequest.pizza.size;
 
         let pizza = new PizzaBuilder(size);
 
-        let withPepperoni: string = body.order.pizza.pepperoni.toLowerCase().trim();
-        let withBacon: string = body.order.pizza.bacon.toLowerCase().trim();
-        let withMushrooms: string = body.order.pizza.mushrooms.toLowerCase().trim();
-        let withMeat: string = body.order.pizza.meat.toLowerCase().trim();
+        let withPepperoni: string = orderRequest.pizza.pepperoni.toLowerCase().trim();
+        let withBacon: string = orderRequest.pizza.bacon.toLowerCase().trim();
+        let withMushrooms: string = orderRequest.pizza.mushrooms.toLowerCase().trim();
+        let withMeat: string = orderRequest.pizza.meat.toLowerCase().trim();
 
         if(withPepperoni == 'yes') {
             pizza.addPepperoni();
@@ -32,16 +35,18 @@ export const handler = async (body: any): Promise<any> => {
             pizza.addMeat();
         }
 
-        pizza.build();
+        //Prepare pizza
+        let pizzaProduct: Pizza = pizza.build();
 
-        return {
-            'message': 'Preparing pizza',
-            'order': {
-                'orderName' : body.order.orderName,
-                'deliveryAddress': body.order.deliveryAddress,
-                'pizza' : pizza
-            },
+        //Set order process flow control object, identifier generated
+        let orderProcess: OrderProcess = {
+            orderIdentifier: `ORD${faker.string.uuid()}`,
+            order: orderRequest,
+            pizzaPrepared: true,
+            pizzaProductToDeliver: pizzaProduct
         };
+
+        return orderProcess
     } catch (error) {
         console.log(error);
         throw new Error();

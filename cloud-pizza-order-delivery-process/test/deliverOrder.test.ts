@@ -1,6 +1,7 @@
 import { PizzaBuilder } from '../builders/pizzaBuilder';
 import { handler } from '../lambda-functions/deliverOrder';
 import { faker } from '@faker-js/faker';
+import { OrderProcess, OrderRequest } from '../types/order';
 
 /* Test to verify the correct returned data from lambda function of final step */
 describe('deliverOrder Lambda Function', () => {
@@ -20,41 +21,57 @@ describe('deliverOrder Lambda Function', () => {
         let mockAddPineapple = 'no';
 
         //Create pizza test object
-        let pizzaObjTest: PizzaBuilder = new PizzaBuilder(mockPizzaSize);
-        pizzaObjTest.addBacon();
-        pizzaObjTest.addMeat();
-        pizzaObjTest.addMushrooms();
-        pizzaObjTest.addPepperoni();
-        pizzaObjTest.build();
+        let pizzaObjBuilderTest: PizzaBuilder = new PizzaBuilder(mockPizzaSize);
+        pizzaObjBuilderTest.addBacon();
+        pizzaObjBuilderTest.addMeat();
+        pizzaObjBuilderTest.addMushrooms();
+        pizzaObjBuilderTest.addPepperoni();
 
-        //Create request object
-        let event: Object = {
-            message: 'Packing pizza',
-            order:{
-                orderName: mockOrderName,
-                deliveryAddress: mockDeliveryAddress,
-                pizza: pizzaObjTest,
+        let pizzaObjTest = pizzaObjBuilderTest.build();
+
+        //Create Order Request object
+        let orderRequest: OrderRequest = {
+            orderName: mockOrderName,
+            deliveryAddress: mockDeliveryAddress,
+            pizza: {
+                size: mockPizzaSize,
+                pepperoni: mockAddPepperoni,
+                bacon: mockAddBacon,
+                mushrooms: mockAddMushrooms,
+                meat: mockAddMeat,
+                pineapple: mockAddPineapple
             }
         };
 
-        let mockOrderIdentifier = `ORD${faker.string.uuid()}`;
+        //Mock order identifier
+        let identifier = faker.string.uuid();
 
-        //Create response object
-        let expectedOutput: Object = {
-            message: 'Sending order',
-            order:{
-                orderIdentifier: mockOrderIdentifier, 
-                orderName: mockOrderName,
-                deliveryAddress: mockDeliveryAddress,
-                pizza: pizzaObjTest,
-            }
+        //Create Order Process object
+        let event: OrderProcess = {
+            orderIdentifier: identifier,
+            order: orderRequest,
+            pizzaPrepared: true,
+            pizzaBaked: true,
+            pizzaPacked: true,
+            pizzaProductToDeliver: pizzaObjTest
+        };
+
+        //Create Order Process output object
+        let expectedOutput: OrderProcess = {
+            orderIdentifier: identifier,
+            order: orderRequest,
+            pizzaPrepared: true,
+            pizzaBaked: true,
+            pizzaPacked: true,
+            orderSent: true,
+            pizzaProductToDeliver: pizzaObjTest,
+            message: 'Sending order!'
         };
 
         //Call the lambda handler function
         const result = await handler(event);
-        const resultOrderObj = result.order;
 
         //Assertions based on the expected behavior of the Lambda function
-        expect(resultOrderObj).toHaveProperty('orderIdentifier');
+        expect(result).toEqual(expectedOutput);
     });
 });

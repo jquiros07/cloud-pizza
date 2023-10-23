@@ -1,21 +1,18 @@
+import { OrderProcess } from "../types/order";
+
 /**
  * Bake pizza lambda function handler. 
  * Pizza baking simulation and returns response with status.
  * 
  * @export
- * @param {any} body
- * @returns {Promise<any>}
+ * @param {OrderProcess} orderProcess
+ * @returns {Promise<OrderProcess>}
  */
-export const handler = async (body: any): Promise<any> => {
+export const handler = async (orderProcess: OrderProcess): Promise<OrderProcess> => {
     try {
-        return {
-            'message': 'Baking pizza',
-            'order': {
-                'orderName' : body.order.orderName,
-                'deliveryAddress': body.order.deliveryAddress,
-                'pizza' : body.order.pizza
-            }
-        };
+        //Update order process flow control object
+        orderProcess.pizzaBaked = true;
+        return orderProcess;
     } catch (error) {
         console.log(error);
         throw new Error();

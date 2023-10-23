@@ -1,24 +1,20 @@
-import { faker } from "@faker-js/faker";
+import { OrderProcess } from "../types/order";
 
 /**
  * Deliver pizza lambda function handler. Pizza order ready to deliver, 
  * generates an order identifier and returns a response with status.
  * 
  * @export
- * @param {any} body
- * @returns {Promise<any>}
+ * @param {OrderProcess} orderProcess
+ * @returns {Promise<OrderProcess>}
  */
-export const handler = async (body: any) => {
+export const handler = async (orderProcess: OrderProcess): Promise<OrderProcess> => {
     try {
-        return {
-            'message': 'Sending order',
-            'order': {
-                'orderIdentifier': `ORD${faker.string.uuid()}`,
-                'orderName' : body.order.orderName,
-                'deliveryAddress': body.order.deliveryAddress,
-                'pizza' : body.order.pizza
-            }
-        };
+        //Update order process flow control object
+        orderProcess.orderSent = true;
+        orderProcess.message = 'Sending order!';
+        
+        return orderProcess;
     } catch (error) {
         console.log(error);
         throw new Error();

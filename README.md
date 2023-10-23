@@ -28,7 +28,7 @@ Not much really, just make sure to:
 
 ## Installation
 1. Clone the repository.<br />
-    1.1. [Useful link](https://docs.github.com/en/repositories/creating-and-managing-repositories/cloning-a-repository)
+    1.1. [Clone Repository](https://docs.github.com/en/repositories/creating-and-managing-repositories/cloning-a-repository)
 2. Install dependencies.<br />
     2.1. Navigate to the project directory selected as destination for the repository.<br />
     2.2. Locate in the root directory and execute "npm install".
@@ -56,14 +56,14 @@ Not much really, just make sure to:
     </code></pre>
 
 ## Deployment
-- Configure the AWS CLI with acccess credentials, if this already set skip these steps.
+- Configure the AWS CLI with acccess credentials. If this is already set, skip these steps.
 - Execute "aws configure"
     <pre><code>
     aws configure
     </code></pre>
 - Next, enter the data requested.
-- That done the AWS CLI will save these values in a configuration file.
-- To verify success execute "aws sts get-caller-identity". It outputs the IAM user data use in the credentials.
+- With that done, the AWS CLI will save these values in a configuration file.
+- To verify success execute "aws sts get-caller-identity". It outputs the IAM user data use in the credentials, keep the value of the "Account" output for next step.
     <pre><code>
     aws sts get-caller-identity
     </code></pre>
@@ -73,7 +73,7 @@ Not much really, just make sure to:
 1. Now all set, to deploy the infrastructure, first it must execute the bootstrapping process. This is because AWS CDK requires some AWS services to be available. For this the AWS account number and region will be needed.
 2. To execute bootstrapping, located inside the directory "cloud-pizza-order-delivery-process", execute "npm run cdk bootstrap aws://aws-account-number/aws-region".
     <pre><code>
-    npm run cdk bootstrap aws://111111111111/us-east-200
+    npm run cdk bootstrap aws://aws-account-number/aws-region
     </code></pre>
     Wait a couples of seconds while the infrastructure is being configured.
 3. Once that, execute "npm run cdk deploy", and be patient. It may ask if the user wish to deploy the changes, answer yes.
@@ -83,18 +83,18 @@ Not much really, just make sure to:
     <pre><code>
     Do you wish to deploy these changes (y/n)? y
     </code></pre>
-4. If everything went well and the process is done, it will show 2 outputs and the Stack ARN. Keep the outputs for usage.
+4. If everything went well and the process is done, it will show 2 outputs and the Stack ARN. Keep the value of the output data "PizzaOrderDeliveryProcessStack.ApiUrl" for usage in the next step.
     <pre><code>
         Outputs:
-        PizzaOrderDeliveryProcessStack.ApiUrl = https://111111111.execute-api.us-east-200.amazonaws.com/prod/
-        PizzaOrderDeliveryProcessStack.PizzaOrderDeliveryApiEndpoint111111 = https://11111111.execute-api.us-east-200.amazonaws.com/prod/
+        PizzaOrderDeliveryProcessStack.ApiUrl = https://aws-account-number.execute-api.aws-region.amazonaws.com/prod/
+        PizzaOrderDeliveryProcessStack.PizzaOrderDeliveryApiEndpoint111111 = https://aws-account-number.execute-api.aws-region.amazonaws.com/prod/
         Stack ARN:
-        arn:aws:cloudformation:us-east-200:11111111111:stack/PizzaOrderDeliveryProcessStack/aaa-aaaaa-aaaaa-aaaaaaaa
+        arn:aws:cloudformation:aws-region:aws-account-number:stack/PizzaOrderDeliveryProcessStack/unique-identifier
     </code></pre>
 
 ## Usage
-1. To test the api, it can be used a tool like Postman to send request and get response. Use the outputs from the deploy process.<br />
-    1.1 [Useful link](https://learning.postman.com/docs/getting-started/first-steps/sending-the-first-request/)<br />
+1. To test the api, it can be used a tool like Postman to send request and get response. Use the output from the deploy process.<br />
+    1.1 [Send Postman Request](https://learning.postman.com/docs/getting-started/first-steps/sending-the-first-request/)<br />
 2. "POST /": Initiate the pizza order process.<br />
     2.1. Request structure (this will return a success response).
     ```json
@@ -112,7 +112,7 @@ Not much really, just make sure to:
     }
     ```
     2.2 To receive a failure response set "pineapple" property to "yes" or remove the whole "pizza" object from the structure.
-3. Successful execution response. The order status can be appreciated in the "orderProcess" section.
+3. Successful execution response. The order status can be appreciated in the "orderProcessResult" section.
     ```json
     {
         "body": {
@@ -129,66 +129,48 @@ Not much really, just make sure to:
         },
         "querystring": {},
         "path": {},
-        "orderProcess": {
-            "ExecutedVersion": "$LATEST",
-            "Payload": {
-                "message": "Sending order",
-                "order": {
-                    "orderIdentifier": "ORD725649c2-f53e-412d-8cbb-dd99793d72bd",
-                    "orderName": "Peter Ferguson",
-                    "deliveryAddress": "street A1 apartment A67, NY",
-                    "pizza": {
-                        "pepperoni": true,
-                        "bacon": true,
-                        "mushrooms": false,
-                        "meat": true,
-                        "size": "Large"
-                    }
-                }
+        "orderRequest": {
+            "orderName": "Peter Ferguson",
+            "deliveryAddress": "street A1 apartment A67, NY",
+            "pizza": {
+                "size": "Large",
+                "pepperoni": "yes",
+                "bacon": "yes",
+                "mushrooms": "no",
+                "meat": "yes",
+                "pineapple": "no"
             },
-            "SdkHttpMetadata": {
-                "AllHttpHeaders": {
-                    "X-Amz-Executed-Version": [
-                        "$LATEST"
-                    ],
-                    "x-amzn-Remapped-Content-Length": [
-                        "0"
-                    ],
-                    "Connection": [
-                        "keep-alive"
-                    ],
-                    "x-amzn-RequestId": [
-                        "ef596c13-fb11-492c-9271-0d2d851a7a5a"
-                    ],
-                    "Content-Length": [
-                        "259"
-                    ],
-                    "Date": [
-                        "Fri, 20 Oct 2023 08:33:49 GMT"
-                    ],
-                    "X-Amzn-Trace-Id": [
-                        "root=1-65323b6a-7d51750f7c22e6317eca587c;parent=430ec170ffa477a7;sampled=1;lineage=916beb46:0"
-                    ],
-                    "Content-Type": [
-                        "application/json"
-                    ]
+            "orderReceived": true,
+            "requestingPineappleAsIngredient": false
+        },
+        "orderProcessResult": {
+            "orderIdentifier": "ORDddc04869-d548-4f21-8629-f7f5a0068f08",
+            "order": {
+                "orderName": "Peter Ferguson",
+                "deliveryAddress": "street A1 apartment A67, NY",
+                "pizza": {
+                    "size": "Large",
+                    "pepperoni": "yes",
+                    "bacon": "yes",
+                    "mushrooms": "no",
+                    "meat": "yes",
+                    "pineapple": "no"
                 },
-                "HttpHeaders": {
-                    "Connection": "keep-alive",
-                    "Content-Length": "259",
-                    "Content-Type": "application/json",
-                    "Date": "Fri, 20 Oct 2023 08:33:49 GMT",
-                    "X-Amz-Executed-Version": "$LATEST",
-                    "x-amzn-Remapped-Content-Length": "0",
-                    "x-amzn-RequestId": "ef596c13-fb11-492c-9271-0d2d851a7a5a",
-                    "X-Amzn-Trace-Id": "root=1-65323b6a-7d51750f7c22e6317eca587c;parent=430ec170ffa477a7;sampled=1;lineage=916beb46:0"
-                },
-                "HttpStatusCode": 200
+                "orderReceived": true,
+                "requestingPineappleAsIngredient": false
             },
-            "SdkResponseMetadata": {
-                "RequestId": "ef596c13-fb11-492c-9271-0d2d851a7a5a"
+            "pizzaPrepared": true,
+            "pizzaProductToDeliver": {
+                "size": "Large",
+                "pepperoni": true,
+                "bacon": true,
+                "mushrooms": false,
+                "meat": true
             },
-            "StatusCode": 200
+            "pizzaBaked": true,
+            "pizzaPacked": true,
+            "orderSent": true,
+            "message": "Sending order!"
         }
     }
     ```
@@ -199,7 +181,7 @@ Not much really, just make sure to:
         "cause": "Customer asked for pineapple."
     }
     ```
-5. Failure execution response. No "pizza" data.
+5. Failure execution response. No "pizza" data (an email will reach to productionsupportdummy@protonmail.com).
     ```json
     {
         "error": "We are having problems processing your order, our apologies.",
