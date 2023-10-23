@@ -20,9 +20,10 @@ Not much really, just make sure to:
     node -v
     </code></pre>
 2. Have an AWS account.
-3. AWS CLI installed.<br />
+   2.1 [AWS Acccount](https://docs.aws.amazon.com/accounts/latest/reference/welcome-first-time-user.html)<br />
+4. AWS CLI installed.<br />
     3.1 [AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html)<br />
-4. Postman for api testing.<br />
+5. Postman for api testing.<br />
     4.1 [Postman](https://www.postman.com/downloads/)
 
 ## Installation
