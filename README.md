@@ -19,7 +19,7 @@ Not much really, just make sure to:
     <pre><code>
     node -v
     </code></pre>
-2. Have an AWS account.
+2. Have an AWS account.<br />
    2.1 [AWS Acccount](https://docs.aws.amazon.com/accounts/latest/reference/welcome-first-time-user.html)<br />
 4. AWS CLI installed.<br />
     3.1 [AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html)<br />
