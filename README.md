@@ -87,7 +87,7 @@ Not much really, just make sure to:
     <pre><code>
         Outputs:
         PizzaOrderDeliveryProcessStack.ApiUrl = https://aws-account-number.execute-api.aws-region.amazonaws.com/prod/
-        PizzaOrderDeliveryProcessStack.PizzaOrderDeliveryApiEndpoint111111 = https://aws-account-number.execute-api.aws-region.amazonaws.com/prod/
+        PizzaOrderDeliveryProcessStack.PizzaOrderDeliveryApiEndpointaws-account-number = https://aws-account-number.execute-api.aws-region.amazonaws.com/prod/
         Stack ARN:
         arn:aws:cloudformation:aws-region:aws-account-number:stack/PizzaOrderDeliveryProcessStack/unique-identifier
     </code></pre>
@@ -96,7 +96,7 @@ Not much really, just make sure to:
 1. To test the api, it can be used a tool like Postman to send request and get response. Use the output from the deploy process.<br />
     1.1 [Send Postman Request](https://learning.postman.com/docs/getting-started/first-steps/sending-the-first-request/)<br />
 2. Initiate the pizza order process.<br />
-    2.1. Make POST request to the endpoint https://aws-account-number.execute-api.aws-region.amazonaws.com/prod<br />
+    2.1. Make POST request to the endpoint value of the output data "PizzaOrderDeliveryProcessStack.ApiUrl"<br />
     2.2. Request structure (this will return a success response).
     ```json
     {
