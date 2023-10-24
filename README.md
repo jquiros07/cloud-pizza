@@ -95,7 +95,7 @@ Not much really, just make sure to:
 ## Usage
 1. To test the api, it can be used a tool like Postman to send request and get response. Use the output from the deploy process.<br />
     1.1 [Send Postman Request](https://learning.postman.com/docs/getting-started/first-steps/sending-the-first-request/)<br />
-2. Initiate the pizza order process.
+2. Initiate the pizza order process.<br />
     2.1. Make POST request to the endpoint https://aws-account-number.execute-api.aws-region.amazonaws.com/prod<br />
     2.2. Request structure (this will return a success response).
     ```json
