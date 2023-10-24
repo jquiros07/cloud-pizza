@@ -87,7 +87,7 @@ Not much really, just make sure to:
     <pre><code>
         Outputs:
         PizzaOrderDeliveryProcessStack.ApiUrl = https://aws-account-number.execute-api.aws-region.amazonaws.com/prod/
-        PizzaOrderDeliveryProcessStack.PizzaOrderDeliveryApiEndpointaws-account-number = https://aws-account-number.execute-api.aws-region.amazonaws.com/prod/
+        PizzaOrderDeliveryProcessStack.PizzaOrderDeliveryApiEndpoint{identifier-generated} = https://aws-account-number.execute-api.aws-region.amazonaws.com/prod/
         Stack ARN:
         arn:aws:cloudformation:aws-region:aws-account-number:stack/PizzaOrderDeliveryProcessStack/unique-identifier
     </code></pre>
