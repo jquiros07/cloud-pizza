@@ -188,6 +188,10 @@ Not much really, just make sure to:
         "cause": "An unknown error happened during the order process."
     }
     ```
+    5.1. To verify the email failure notification for this scenario, log into the dummy email account and check:
+        - Link: https://account.proton.me/login
+        - Email address: productionsupportdummy@protonmail.com
+        - Password: cloudpizzatest123!!
 
 ## Cleanup
 To remove the infrastructure and delete all resources created, execute "npm run cdk destroy".
