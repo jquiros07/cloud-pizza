@@ -192,7 +192,7 @@ Not much really, just make sure to:
     5.1. To verify the email failure notification for this scenario, log into the dummy email account and check:<br />
       - Link: https://account.proton.me/login<br />
       - Email address: productionsupportdummy@protonmail.com<br />
-      - Password: cloudpizzatest123!!<br />
+      - Password: this-password-is-provided-on-secure-channels <br />
 
 ## Cleanup
 To remove the infrastructure and delete all resources created, execute "npm run cdk destroy".
