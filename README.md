@@ -95,8 +95,9 @@ Not much really, just make sure to:
 ## Usage
 1. To test the api, it can be used a tool like Postman to send request and get response. Use the output from the deploy process.<br />
     1.1 [Send Postman Request](https://learning.postman.com/docs/getting-started/first-steps/sending-the-first-request/)<br />
-2. "POST /": Initiate the pizza order process.<br />
-    2.1. Request structure (this will return a success response).
+2. Initiate the pizza order process.
+    2.1. Make POST request to the endpoint https://aws-account-number.execute-api.aws-region.amazonaws.com/prod<br />
+    2.2. Request structure (this will return a success response).
     ```json
     {
         "orderName": "Peter Ferguson",
@@ -112,7 +113,7 @@ Not much really, just make sure to:
     }
     ```
     2.2 To receive a failure response set "pineapple" property to "yes" or remove the whole "pizza" object from the structure.
-3. Successful execution response. The order status can be appreciated in the "orderProcessResult" section.
+4. Successful execution response. The order status can be appreciated in the "orderProcessResult" section.
     ```json
     {
         "body": {
@@ -174,14 +175,14 @@ Not much really, just make sure to:
         }
     }
     ```
-4. Failure execution response. "Pineapple" set to "yes".
+5. Failure execution response. "Pineapple" set to "yes".
     ```json
     {
         "error": "Failed to make pizza.",
         "cause": "Customer asked for pineapple."
     }
     ```
-5. Failure execution response. No "pizza" data (an email will reach to productionsupportdummy@protonmail.com).
+6. Failure execution response. No "pizza" data (an email will reach to productionsupportdummy@protonmail.com).
     ```json
     {
         "error": "We are having problems processing your order, our apologies.",
