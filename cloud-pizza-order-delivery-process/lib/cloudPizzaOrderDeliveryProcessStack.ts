@@ -184,6 +184,7 @@ export class CloudPizzaOrderDeliveryProcessStack extends cdk.Stack {
     //Assigning api gateway to state machine
     const api = new apiGateway.StepFunctionsRestApi(this, 'PizzaOrderDeliveryApi', { stateMachine: stateMachine });
 
+    //Api integration type setup
     const integration = new apiGateway.Integration({
       type: apiGateway.IntegrationType.HTTP_PROXY,
       options: {
